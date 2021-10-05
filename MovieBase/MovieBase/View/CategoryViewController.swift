@@ -7,7 +7,7 @@ import UIKit
 final class CategoryViewController: UIViewController {
     // MARK: view elements
 
-    var tableView = UITableView()
+    private var tableView = UITableView()
 
     // MARK: private properties
 

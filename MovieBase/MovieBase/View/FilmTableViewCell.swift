@@ -7,9 +7,9 @@ import UIKit
 final class FilmTableViewCell: UITableViewCell {
     // MARK: View elements
 
-    let titleLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let imageViewFilm = UIImageView()
+    private let titleLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    private let imageViewFilm = UIImageView()
     private let cellView = UIView()
 
     // MARK: private properties
