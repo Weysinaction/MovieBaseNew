@@ -12,7 +12,6 @@ final class CategoryViewController: UIViewController {
     // MARK: private properties
 
     private let filmCellID = "FilmCell"
-    private let apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=23df17499c6157c62e263dc10faac033"
 
     // MARK: public properties
 
@@ -24,7 +23,7 @@ final class CategoryViewController: UIViewController {
         super.viewDidLoad()
 
         setupViewController()
-        presenter.getDataFromServer(url: apiURL)
+        presenter.getDataFromServer()
     }
 
     // MARK: Private methods

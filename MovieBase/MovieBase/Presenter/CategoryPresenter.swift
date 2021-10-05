@@ -10,8 +10,7 @@ protocol MainViewProtocol: AnyObject {
 
 protocol MainViewPresenterProtocol: AnyObject {
     var filmsArray: [Film] { get set }
-    init(view: MainViewProtocol, filmModel: FilmRequestModel)
-    func getDataFromServer(url: String)
+    func getDataFromServer()
 }
 
 /// CategoryPresenter-
@@ -22,8 +21,9 @@ final class CategoryPresenter: MainViewPresenterProtocol {
 
     // MARK: private properties
 
-    private var view: MainViewProtocol?
+    private weak var view: MainViewProtocol?
     private var filmModel: FilmRequestModel?
+    private let apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=23df17499c6157c62e263dc10faac033"
 
     // MARK: init
 
@@ -34,9 +34,9 @@ final class CategoryPresenter: MainViewPresenterProtocol {
 
     // MARK: internal methods
 
-    internal func getDataFromServer(url: String) {
+    internal func getDataFromServer() {
         guard let url =
-            URL(string: url)
+            URL(string: apiURL)
         else { return }
 
         let session = URLSession.shared
