@@ -8,7 +8,7 @@ protocol Builder {
 }
 
 /// ModuleBuilder-
-class ModuleBuilder: Builder {
+final class ModuleBuilder: Builder {
     static func createMain() -> UIViewController {
         let model = FilmRequestModel(page: nil, results: nil)
         let view = CategoryViewController()

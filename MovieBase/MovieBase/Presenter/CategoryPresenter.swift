@@ -16,14 +16,23 @@ protocol MainViewPresenterProtocol: AnyObject {
 
 /// CategoryPresenter-
 final class CategoryPresenter: MainViewPresenterProtocol {
+    // MARK: public properties
+
+    var filmsArray: [Film] = []
+
+    // MARK: private properties
+
     private var view: MainViewProtocol?
     private var filmModel: FilmRequestModel?
-    var filmsArray: [Film] = []
+
+    // MARK: init
 
     init(view: MainViewProtocol, filmModel: FilmRequestModel) {
         self.view = view
         self.filmModel = filmModel
     }
+
+    // MARK: internal methods
 
     internal func getDataFromServer(url: String) {
         guard let url =
