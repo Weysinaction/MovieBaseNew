@@ -5,16 +5,18 @@ import UIKit
 
 /// CategoryViewController-
 final class CategoryViewController: UIViewController {
-    // MARK: View elements
+    // MARK: view elements
 
-    private var filmTableView = UITableView()
+    var tableView = UITableView()
 
     // MARK: private properties
 
     private let filmCellID = "FilmCell"
     private let apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=23df17499c6157c62e263dc10faac033"
-    private let imagePath = "https://image.tmdb.org/t/p/w500"
-    private var filmsArray: [Film] = []
+
+    // MARK: public properties
+
+    var presenter: MainViewPresenterProtocol!
 
     // MARK: CategoryViewController
 
@@ -22,7 +24,7 @@ final class CategoryViewController: UIViewController {
         super.viewDidLoad()
 
         setupViewController()
-        getDataFromServer()
+        presenter.getDataFromServer(url: apiURL)
     }
 
     // MARK: Private methods
@@ -32,33 +34,6 @@ final class CategoryViewController: UIViewController {
         title = "Films"
 
         setupTableView()
-    }
-
-    private func getDataFromServer() {
-        guard let url =
-            URL(string: apiURL)
-        else { return }
-
-        let session = URLSession.shared
-        session.dataTask(with: url) { data, response, error in
-            guard let response = response, let data = data else { return }
-            print(response)
-
-            do {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let filmRequestModel = try decoder.decode(FilmRequestModel.self, from: data)
-
-                guard let films = filmRequestModel.results else { return }
-                self.filmsArray = films
-
-                DispatchQueue.main.async {
-                    self.filmTableView.reloadData()
-                }
-            } catch {
-                print(error)
-            }
-        }.resume()
     }
 
     private func setupTableView() {
@@ -74,33 +49,13 @@ final class CategoryViewController: UIViewController {
         filmTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         filmTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-
-    private func configureCell(cell: FilmTableViewCell, indexPath: IndexPath) {
-        let film = filmsArray[indexPath.row]
-
-        if let title = film.originalTitle {
-            cell.titleLabel.text = title
-        }
-        if let overview = film.overview {
-            cell.descriptionLabel.text = overview
-        }
-
-        DispatchQueue.global().async {
-            guard let imageURL = URL(string: "\(self.imagePath)\(film.posterPath ?? "")") else { return }
-            guard let imageData = try? Data(contentsOf: imageURL) else { return }
-
-            DispatchQueue.main.async {
-                cell.imageViewFilm.image = UIImage(data: imageData)
-            }
-        }
-    }
 }
 
 // MARK: UITableViewDelegate, UITableViewDataSource
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filmsArray.count
+        presenter.filmsArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -108,7 +63,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
             .dequeueReusableCell(withIdentifier: filmCellID, for: indexPath) as? FilmTableViewCell
         else { return UITableViewCell() }
 
-        configureCell(cell: cell, indexPath: indexPath)
+        cell.configureCell(filmsArray: presenter.filmsArray, indexPath: indexPath)
 
         return cell
     }
@@ -121,12 +76,25 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = ViewController()
 
         let currentItem = indexPath.row
-        guard let title = filmsArray[currentItem].originalTitle,
-              let overview = filmsArray[currentItem].overview,
-              let imagePath = filmsArray[currentItem].posterPath else { return }
+        guard let title = presenter.filmsArray[currentItem].originalTitle,
+              let overview = presenter.filmsArray[currentItem].overview,
+              let imagePath = presenter.filmsArray[currentItem].posterPath else { return }
         vc.filmTitle = title
         vc.filmDescription = overview
         vc.path = imagePath
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+// MARK: MainViewProtocol
+
+extension CategoryViewController: MainViewProtocol {
+    var filmTableView: UITableView {
+        get {
+            tableView
+        }
+        set(newValue) {
+            tableView = newValue
+        }
     }
 }

@@ -12,6 +12,10 @@ final class FilmTableViewCell: UITableViewCell {
     let imageViewFilm = UIImageView()
     private let cellView = UIView()
 
+    // MARK: private properties
+
+    private let imagePath = "https://image.tmdb.org/t/p/w500"
+
     // MARK: FilmTableViewCell methods
 
     override func awakeFromNib() {
@@ -37,6 +41,28 @@ final class FilmTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: public methods
+
+    func configureCell(filmsArray: [Film], indexPath: IndexPath) {
+        let film = filmsArray[indexPath.row]
+
+        if let title = film.originalTitle {
+            titleLabel.text = title
+        }
+        if let overview = film.overview {
+            descriptionLabel.text = overview
+        }
+
+        DispatchQueue.global().async {
+            guard let imageURL = URL(string: "\(self.imagePath)\(film.posterPath ?? "")") else { return }
+            guard let imageData = try? Data(contentsOf: imageURL) else { return }
+
+            DispatchQueue.main.async {
+                self.imageViewFilm.image = UIImage(data: imageData)
+            }
+        }
+    }
+
     // MARK: private methods
 
     private func setupBackgroundView() {
@@ -44,6 +70,7 @@ final class FilmTableViewCell: UITableViewCell {
         cellView.layer.borderWidth = 1
         cellView.layer.borderColor = UIColor.darkGray.cgColor
         cellView.layer.cornerRadius = 8
+        cellView.clipsToBounds = true
         cellView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         cellView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         cellView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
