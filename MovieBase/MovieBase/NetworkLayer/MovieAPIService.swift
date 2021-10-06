@@ -1,19 +1,15 @@
-// MovieNetworkService.swift
+// MovieAPIService.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Alamofire
 import Foundation
 
-protocol NetworkServiceProtocol {
+protocol MovieAPIServiceProtocol {
     func getMovies(completion: @escaping (Result<[Film]?, Error>) -> Void)
 }
 
 /// MoviBaseService-
-final class MovieNetworkService: NetworkServiceProtocol {
-    // MARK: public properties
-
-    var filmsArray: [Film] = []
-
+final class MovieAPIService: MovieAPIServiceProtocol {
     // MARK: private properties
 
     private let apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=23df17499c6157c62e263dc10faac033"

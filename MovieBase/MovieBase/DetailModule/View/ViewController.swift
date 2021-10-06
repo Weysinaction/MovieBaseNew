@@ -68,8 +68,9 @@ final class ViewController: UIViewController {
 
     private func setupHeaderImageView() {
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
-        let data = presenter.networkService.getImageFromPath(path: path)
-        headerImageView.image = UIImage(data: data)
+        let data = presenter.networkService.getImageFromPath(path: path) { data in
+            self.headerImageView.image = UIImage(data: data)
+        }
         headerImageView.clipsToBounds = true
         headerImageView.layer.cornerRadius = 8
         headerImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
@@ -99,7 +100,8 @@ final class ViewController: UIViewController {
     }
 }
 
-//MARK: DetailViewProtocol
+// MARK: DetailViewProtocol
+
 extension ViewController: DetailViewProtocol {
     func setupData() {
         filmTitle = presenter.film?.originalTitle ?? ""

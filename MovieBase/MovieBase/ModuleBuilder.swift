@@ -10,9 +10,9 @@ protocol Builder {
 /// ModuleBuilder-
 final class ModuleBuilder: Builder {
     static func createMain() -> UIViewController {
-        let networkService = MovieNetworkService()
+        let movieAPIService = MovieAPIService()
         let view = CategoryViewController()
-        let presenter = CategoryPresenter(view: view, networkService: networkService)
+        let presenter = CategoryPresenter(view: view, movieAPIService: movieAPIService)
         view.presenter = presenter
 
         return view

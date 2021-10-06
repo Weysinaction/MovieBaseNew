@@ -1,10 +1,11 @@
 // ImageNetworkService.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Alamofire
 import Foundation
 
 protocol ImageNetworkServiceProtocol {
-    func getImageFromPath(path: String) -> Data
+    func getImageFromPath(path: String, completion: @escaping (Data) -> Void)
 }
 
 /// ImageNetworkService-
@@ -15,10 +16,10 @@ final class ImageNetworkService: ImageNetworkServiceProtocol {
 
     // MARK: internal methods
 
-    internal func getImageFromPath(path: String) -> Data {
-        guard let imageURL = URL(string: "\(url)\(path)"),
-              let imageData = try? Data(contentsOf: imageURL) else { return Data() }
-
-        return imageData
+    internal func getImageFromPath(path: String, completion: @escaping (Data) -> Void) {
+        AF.request("\(url)\(path)").responseData { response in
+            guard let data = response.value else { return }
+            completion(data)
+        }
     }
 }

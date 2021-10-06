@@ -11,7 +11,7 @@ protocol MainViewProtocol: AnyObject {
 }
 
 protocol MainViewPresenterProtocol: AnyObject {
-    var filmsArray: [Film]? { get set }
+    var films: [Film]? { get set }
     func getMovies()
 }
 
@@ -19,20 +19,19 @@ protocol MainViewPresenterProtocol: AnyObject {
 final class CategoryPresenter: MainViewPresenterProtocol {
     // MARK: public properties
 
-    var filmsArray: [Film]? = []
+    var films: [Film]? = []
 
     // MARK: private properties
 
     private weak var view: MainViewProtocol?
-    private var filmModel: FilmRequestModel?
-    private let networkService: NetworkServiceProtocol!
+    private let networkService: MovieAPIServiceProtocol!
     private let apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=23df17499c6157c62e263dc10faac033"
 
     // MARK: init
 
-    init(view: MainViewProtocol, networkService: NetworkServiceProtocol) {
+    init(view: MainViewProtocol, movieAPIService: MovieAPIServiceProtocol) {
         self.view = view
-        self.networkService = networkService
+        networkService = movieAPIService
     }
 
     func getMovies() {
@@ -41,7 +40,7 @@ final class CategoryPresenter: MainViewPresenterProtocol {
             DispatchQueue.main.async {
                 switch result {
                 case let .success(films):
-                    self.filmsArray = films
+                    self.films = films
                     self.view?.success()
                 case let .failure(error):
                     self.view?.failure(error: error)

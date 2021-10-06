@@ -54,7 +54,7 @@ final class CategoryViewController: UIViewController {
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.filmsArray?.count ?? 0
+        presenter.films?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,7 +62,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
             .dequeueReusableCell(withIdentifier: filmCellID, for: indexPath) as? FilmTableViewCell
         else { return UITableViewCell() }
 
-        guard let film = presenter.filmsArray?[indexPath.row] else { return UITableViewCell() }
+        guard let film = presenter.films?[indexPath.row] else { return UITableViewCell() }
         cell.configureCell(film: film)
 
         return cell
@@ -73,7 +73,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let film = presenter.filmsArray?[indexPath.row] else { return }
+        guard let film = presenter.films?[indexPath.row] else { return }
         let vc = ModuleBuilder.createDetail(film: film)
 
         navigationController?.pushViewController(vc, animated: true)

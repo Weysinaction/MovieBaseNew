@@ -14,12 +14,14 @@ protocol DetailViewPresenterProtocol: AnyObject {
 
 /// DetailViewPresenter-
 final class DetailPresenter: DetailViewPresenterProtocol {
-    //MARK: public properties
-    var film: Film?
-    weak var view: DetailViewProtocol!
-    var networkService: ImageNetworkServiceProtocol!
+    // MARK: public properties
 
-    //MARK: init
+    var film: Film?
+    private weak var view: DetailViewProtocol!
+    internal var networkService: ImageNetworkServiceProtocol!
+
+    // MARK: init
+
     init(view: DetailViewProtocol, film: Film, networkService: ImageNetworkServiceProtocol) {
         self.view = view
         self.film = film
