@@ -23,7 +23,7 @@ final class CategoryViewController: UIViewController {
         super.viewDidLoad()
 
         setupViewController()
-        presenter.getDataFromServer()
+        presenter.getMovies()
     }
 
     // MARK: Private methods
@@ -54,7 +54,7 @@ final class CategoryViewController: UIViewController {
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.filmsArray.count
+        presenter.filmsArray?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,7 +62,8 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
             .dequeueReusableCell(withIdentifier: filmCellID, for: indexPath) as? FilmTableViewCell
         else { return UITableViewCell() }
 
-        cell.configureCell(filmsArray: presenter.filmsArray, indexPath: indexPath)
+        guard let film = presenter.filmsArray?[indexPath.row] else { return UITableViewCell() }
+        cell.configureCell(film: film)
 
         return cell
     }
@@ -72,15 +73,9 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ViewController()
+        guard let film = presenter.filmsArray?[indexPath.row] else { return }
+        let vc = ModuleBuilder.createDetail(film: film)
 
-        let currentItem = indexPath.row
-        guard let title = presenter.filmsArray[currentItem].originalTitle,
-              let overview = presenter.filmsArray[currentItem].overview,
-              let imagePath = presenter.filmsArray[currentItem].posterPath else { return }
-        vc.filmTitle = title
-        vc.filmDescription = overview
-        vc.path = imagePath
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -95,5 +90,13 @@ extension CategoryViewController: MainViewProtocol {
         set(newValue) {
             tableView = newValue
         }
+    }
+
+    func success() {
+        filmTableView.reloadData()
+    }
+
+    func failure(error: Error) {
+        print(error.localizedDescription)
     }
 }
