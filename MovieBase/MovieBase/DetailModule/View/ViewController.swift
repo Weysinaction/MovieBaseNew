@@ -3,7 +3,7 @@
 
 import UIKit
 /// Контроллер-
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     // MARK: View elements
 
     private let stackView = UIStackView()

@@ -13,7 +13,7 @@ protocol DetailViewPresenterProtocol: AnyObject {
 }
 
 /// DetailViewPresenter-
-class DetailPresenter: DetailViewPresenterProtocol {
+final class DetailPresenter: DetailViewPresenterProtocol {
     //MARK: public properties
     var film: Film?
     weak var view: DetailViewProtocol!

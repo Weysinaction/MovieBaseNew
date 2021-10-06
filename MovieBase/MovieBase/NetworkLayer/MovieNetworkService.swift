@@ -9,7 +9,7 @@ protocol NetworkServiceProtocol {
 }
 
 /// MoviBaseService-
-class MovieNetworkService: NetworkServiceProtocol {
+final class MovieNetworkService: NetworkServiceProtocol {
     // MARK: public properties
 
     var filmsArray: [Film] = []

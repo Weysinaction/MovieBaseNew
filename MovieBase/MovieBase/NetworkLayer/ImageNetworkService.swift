@@ -8,7 +8,7 @@ protocol ImageNetworkServiceProtocol {
 }
 
 /// ImageNetworkService-
-class ImageNetworkService: ImageNetworkServiceProtocol {
+final class ImageNetworkService: ImageNetworkServiceProtocol {
     // MARK: private properties
 
     private var url = "https://image.tmdb.org/t/p/w500"
