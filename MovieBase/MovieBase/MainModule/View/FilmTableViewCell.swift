@@ -43,9 +43,7 @@ final class FilmTableViewCell: UITableViewCell {
 
     // MARK: public methods
 
-    func configureCell(filmsArray: [Film], indexPath: IndexPath) {
-        let film = filmsArray[indexPath.row]
-
+    func configureCell(film: Film) {
         if let title = film.originalTitle {
             titleLabel.text = title
         }

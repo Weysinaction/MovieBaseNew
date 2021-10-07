@@ -3,7 +3,7 @@
 
 import UIKit
 /// Контроллер-
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     // MARK: View elements
 
     private let stackView = UIStackView()
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
 
     // MARK: private properties
 
-    private var imageURL = "https://image.tmdb.org/t/p/w500"
+    var presenter: DetailViewPresenterProtocol!
 
     // MARK: ViewController's methods
 
@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     private func setupSubviews() {
         view.backgroundColor = .systemBackground
 
+        setupData()
         setupScrollView()
         setupTitleLabel()
         setupHeaderImageView()
@@ -67,7 +68,9 @@ class ViewController: UIViewController {
 
     private func setupHeaderImageView() {
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
-        headerImageView.image = getImageFromPath(url: imageURL, path: path)
+        let data = presenter.networkService.getImageFromPath(path: path) { data in
+            self.headerImageView.image = UIImage(data: data)
+        }
         headerImageView.clipsToBounds = true
         headerImageView.layer.cornerRadius = 8
         headerImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
@@ -94,5 +97,15 @@ class ViewController: UIViewController {
         descriptionLabel.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 10).isActive = true
         descriptionLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 10).isActive = true
         descriptionLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+    }
+}
+
+// MARK: DetailViewProtocol
+
+extension ViewController: DetailViewProtocol {
+    func setupData() {
+        filmTitle = presenter.film?.originalTitle ?? ""
+        filmDescription = presenter.film?.overview ?? ""
+        path = presenter.film?.posterPath ?? ""
     }
 }
