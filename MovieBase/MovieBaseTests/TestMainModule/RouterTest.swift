@@ -9,7 +9,7 @@ class MockNavigationController: UINavigationController {
     var presentedVC: UIViewController?
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        presentedVC = viewController
+        self.presentedVC = viewController
         super.pushViewController(viewController, animated: animated)
     }
 }
@@ -31,7 +31,7 @@ class RouterTest: XCTestCase {
 
     func testRouter() {
         router.showDetail(film: nil)
-        let detailVC = navigationController.presentedViewController
+        let detailVC = navigationController.presentedVC
         XCTAssertTrue(detailVC is ViewController)
     }
 }
