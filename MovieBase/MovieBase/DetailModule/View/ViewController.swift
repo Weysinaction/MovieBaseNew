@@ -68,7 +68,7 @@ final class ViewController: UIViewController {
 
     private func setupHeaderImageView() {
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
-        let data = presenter.networkService.getImageFromPath(path: path) { data in
+        presenter.networkService.getImageFromPath(path: path) { data in
             self.headerImageView.image = UIImage(data: data)
         }
         headerImageView.clipsToBounds = true

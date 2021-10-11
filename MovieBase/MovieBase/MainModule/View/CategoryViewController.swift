@@ -74,9 +74,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let film = presenter.films?[indexPath.row] else { return }
-        let vc = ModuleBuilder.createDetail(film: film)
-
-        navigationController?.pushViewController(vc, animated: true)
+        presenter.tapOnTheFilm(film: film)
     }
 }
 

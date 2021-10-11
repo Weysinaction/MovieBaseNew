@@ -13,6 +13,7 @@ protocol MainViewProtocol: AnyObject {
 protocol MainViewPresenterProtocol: AnyObject {
     var films: [Film]? { get set }
     func getMovies()
+    func tapOnTheFilm(film: Film)
 }
 
 /// CategoryPresenter-
@@ -24,18 +25,24 @@ final class CategoryPresenter: MainViewPresenterProtocol {
     // MARK: private properties
 
     private weak var view: MainViewProtocol?
-    private let networkService: MovieAPIServiceProtocol!
+    private let movieAPIService: MovieAPIServiceProtocol!
+    private let router: RouterProtocol?
     private let apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=23df17499c6157c62e263dc10faac033"
 
     // MARK: init
 
-    init(view: MainViewProtocol, movieAPIService: MovieAPIServiceProtocol) {
+    init(view: MainViewProtocol, movieAPIService: MovieAPIServiceProtocol, router: RouterProtocol) {
         self.view = view
-        networkService = movieAPIService
+        self.movieAPIService = movieAPIService
+        self.router = router
+    }
+
+    func tapOnTheFilm(film: Film) {
+        router?.showDetail(film: film)
     }
 
     func getMovies() {
-        networkService.getMovies { [weak self] result in
+        movieAPIService.getMovies { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
