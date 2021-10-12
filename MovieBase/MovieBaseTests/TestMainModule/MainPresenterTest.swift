@@ -47,7 +47,7 @@ class MainPresenterTest: XCTestCase {
 
     override func setUpWithError() throws {
         let navController = UINavigationController()
-        let assembly = AssemblyModelBuilder()
+        let assembly = AssemblyModel()
         router = Router(navigationController: navController, assemblyBuilder: assembly)
     }
 

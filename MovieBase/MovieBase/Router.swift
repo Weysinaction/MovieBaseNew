@@ -11,7 +11,7 @@ protocol RouterMain {
 
 protocol RouterProtocol: RouterMain {
     func initialViewController()
-    func showDetail(film: Film?)
+    func showDetail(film: MoviesManagedObjects?)
     func popToRoot()
 }
 
@@ -33,7 +33,7 @@ class Router: RouterProtocol {
         }
     }
 
-    func showDetail(film: Film?) {
+    func showDetail(film: MoviesManagedObjects?) {
         if let navigationController = navigationController {
             guard let film = film,
                   let detailViewController = assemblyBuilder?.createDetail(router: self, film: film) else { return }
