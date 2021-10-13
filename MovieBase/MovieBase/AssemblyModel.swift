@@ -13,7 +13,8 @@ final class AssemblyModel: AssemblyBuilderProtocol {
     func createMain(router: RouterProtocol) -> UIViewController {
         let movieAPIService = MovieAPIService()
         let view = CategoryViewController()
-        let dataStorageService = DataStorageService()
+        let repository = Repository(database: CoreDataStorage())
+        let dataStorageService = DataStorageService(repository: repository)
         let presenter = CategoryPresenter(
             view: view,
             movieAPIService: movieAPIService,

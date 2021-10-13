@@ -5,6 +5,7 @@ import CoreData
 import Foundation
 
 protocol DataStorageServiceProtocol {
+    var repository: DataBaseProtocol! { get set }
     func getFilms() -> [MoviesManagedObjects]?
     func addFilms(object: [Film])
     func deleteAllData(_ entity: String)
@@ -12,9 +13,15 @@ protocol DataStorageServiceProtocol {
 
 /// DataStorageService-
 class DataStorageService: DataStorageServiceProtocol {
-    // MARK: private properties
+    // MARK: internal properties
 
-    private let repository = Repository(database: CoreDataStorage())
+    internal var repository: DataBaseProtocol!
+
+    // MARK: init
+
+    init(repository: DataBaseProtocol) {
+        self.repository = repository
+    }
 
     // MARK: public methods
 

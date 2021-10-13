@@ -44,6 +44,7 @@ final class FilmTableViewCell: UITableViewCell {
     // MARK: public methods
 
     func configureCell(film: MoviesManagedObjects) {
+        accessibilityIdentifier = "FilmCell"
         if let title = film.originalTitle {
             titleLabel.text = title
         }
