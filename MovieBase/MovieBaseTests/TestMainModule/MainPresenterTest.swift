@@ -37,6 +37,49 @@ class MockNetworkService: MovieAPIServiceProtocol {
     }
 }
 
+/// MockDatabase-
+class MockDatabase: DataBaseProtocol {
+    var movies: [MoviesManagedObjects] = []
+    func getFilms() -> [MoviesManagedObjects]? {
+        movies
+    }
+
+    func addFilms(films: [Film]) {
+        for element in films {
+            let film = MoviesManagedObjects(context: CoreDataService.shared.context)
+            film.overview = element.overview
+            film.originalTitle = element.originalTitle
+            film.posterPath = element.posterPath
+            movies.append(film)
+        }
+    }
+
+    func deleteAllData(_ entity: String) {
+        movies = []
+    }
+}
+
+/// MockDataStorage-
+class MockDataStorage: DataStorageServiceProtocol {
+    var repository: DataBaseProtocol!
+
+    init(repository: DataBaseProtocol) {
+        self.repository = repository
+    }
+
+    func getFilms() -> [MoviesManagedObjects]? {
+        repository.getFilms()
+    }
+
+    func addFilms(object: [Film]) {
+        repository.addFilms(films: object)
+    }
+
+    func deleteAllData(_ entity: String) {
+        repository.deleteAllData(entity)
+    }
+}
+
 /// MainPresenterTest-
 class MainPresenterTest: XCTestCase {
     var view: MockView!
@@ -44,10 +87,11 @@ class MainPresenterTest: XCTestCase {
     var networkService: MovieAPIServiceProtocol!
     var router: RouterProtocol!
     var films: [Film] = []
+    var dataStorage = MockDataStorage(repository: MockDatabase())
 
     override func setUpWithError() throws {
         let navController = UINavigationController()
-        let assembly = AssemblyModelBuilder()
+        let assembly = AssemblyModel()
         router = Router(navigationController: navController, assemblyBuilder: assembly)
     }
 
@@ -63,7 +107,13 @@ class MainPresenterTest: XCTestCase {
 
         view = MockView(tableView: UITableView())
         networkService = MockNetworkService(films: films)
-        presenter = CategoryPresenter(view: view, movieAPIService: networkService, router: router)
+
+        presenter = CategoryPresenter(
+            view: view,
+            movieAPIService: networkService,
+            router: router,
+            dataStorageService: dataStorage
+        )
 
         var catchFilms: [Film]?
 
@@ -83,7 +133,12 @@ class MainPresenterTest: XCTestCase {
     func testGetFailureFilm() {
         view = MockView(tableView: UITableView())
         networkService = MockNetworkService(films: nil)
-        presenter = CategoryPresenter(view: view, movieAPIService: networkService, router: router)
+        presenter = CategoryPresenter(
+            view: view,
+            movieAPIService: networkService,
+            router: router,
+            dataStorageService: dataStorage
+        )
 
         var catchError: Error?
 
@@ -97,5 +152,34 @@ class MainPresenterTest: XCTestCase {
         }
 
         XCTAssertNotNil(catchError)
+    }
+
+    func testDataStorage() {
+        let film = Film(posterPath: "/film/main/stub", overview: "overview", originalTitle: "original title")
+        films.append(film)
+
+        view = MockView(tableView: UITableView())
+        networkService = MockNetworkService(films: films)
+        presenter = CategoryPresenter(
+            view: view,
+            movieAPIService: networkService,
+            router: router,
+            dataStorageService: dataStorage
+        )
+
+        var optMovies = dataStorage.getFilms()
+        guard let movies = optMovies else { return }
+        if movies.isEmpty {
+            networkService.getMovies { result in
+                switch result {
+                case let .success(films):
+                    self.dataStorage.addFilms(object: films ?? [])
+                    optMovies = self.dataStorage.getFilms()
+                case let .failure(error):
+                    print(error)
+                }
+            }
+        }
+        XCTAssertEqual(films[0].posterPath, optMovies?[0].posterPath)
     }
 }

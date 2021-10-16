@@ -37,6 +37,7 @@ final class CategoryViewController: UIViewController {
 
     private func setupTableView() {
         filmTableView = UITableView(frame: view.bounds, style: .plain)
+        filmTableView.accessibilityIdentifier = "FilmTableView"
         filmTableView.register(FilmTableViewCell.self, forCellReuseIdentifier: filmCellID)
 
         filmTableView.delegate = self

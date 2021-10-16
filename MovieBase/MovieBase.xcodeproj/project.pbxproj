@@ -19,7 +19,7 @@
 		E02FF02A26B3FC4B00E3C2E4 /* FilmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02FF02926B3FC4B00E3C2E4 /* FilmTableViewCell.swift */; };
 		E02FF02E26B96C5800E3C2E4 /* FilmRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02FF02D26B96C5700E3C2E4 /* FilmRequestModel.swift */; };
 		E0EC5CA3270B647500E5B613 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CA2270B647500E5B613 /* CategoryPresenter.swift */; };
-		E0EC5CA5270B71C600E5B613 /* AssemblyModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CA4270B71C600E5B613 /* AssemblyModelBuilder.swift */; };
+		E0EC5CA5270B71C600E5B613 /* AssemblyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CA4270B71C600E5B613 /* AssemblyModel.swift */; };
 		E0EC5CA8270DC54500E5B613 /* MovieAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CA7270DC54500E5B613 /* MovieAPIService.swift */; };
 		E0EC5CB0270DCBB300E5B613 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E0EC5CAF270DCBB300E5B613 /* Alamofire */; };
 		E0EC5CB2270DDEA300E5B613 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CB1270DDEA300E5B613 /* DetailPresenter.swift */; };
@@ -28,10 +28,12 @@
 		E0EC5CB8270F463700E5B613 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CB7270F463700E5B613 /* Router.swift */; };
 		E0EC5CBD2710689400E5B613 /* MainPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CBC2710689400E5B613 /* MainPresenterTest.swift */; };
 		E0EC5CBF27109D5300E5B613 /* RouterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CBE27109D5300E5B613 /* RouterTest.swift */; };
-		E0EC5CC22714BD2300E5B613 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CC02714BD2300E5B613 /* Model.xcdatamodeld */; };
 		E0EC5CC52714C38F00E5B613 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CC42714C38F00E5B613 /* CoreDataService.swift */; };
-		E0EC5CC72714C39900E5B613 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CC62714C39900E5B613 /* Repository.swift */; };
-		E0EC5CC92714C41400E5B613 /* Films.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CC82714C41400E5B613 /* Films.swift */; };
+		E0EC5CC72714C39900E5B613 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CC62714C39900E5B613 /* CoreDataStorage.swift */; };
+		E0EC5CC92714C41400E5B613 /* MoviesManagedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CC82714C41400E5B613 /* MoviesManagedObjects.swift */; };
+		E0EC5CCB2715D0E100E5B613 /* DataStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CCA2715D0E100E5B613 /* DataStorageService.swift */; };
+		E0EC5CD02716142700E5B613 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CCE2716142700E5B613 /* Model.xcdatamodeld */; };
+		E0EC5CD22716340100E5B613 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EC5CD12716340100E5B613 /* Repository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +72,7 @@
 		E02FF02926B3FC4B00E3C2E4 /* FilmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmTableViewCell.swift; sourceTree = "<group>"; };
 		E02FF02D26B96C5700E3C2E4 /* FilmRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmRequestModel.swift; sourceTree = "<group>"; };
 		E0EC5CA2270B647500E5B613 /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
-		E0EC5CA4270B71C600E5B613 /* AssemblyModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyModelBuilder.swift; sourceTree = "<group>"; };
+		E0EC5CA4270B71C600E5B613 /* AssemblyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyModel.swift; sourceTree = "<group>"; };
 		E0EC5CA7270DC54500E5B613 /* MovieAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIService.swift; sourceTree = "<group>"; };
 		E0EC5CB1270DDEA300E5B613 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		E0EC5CB3270DE06100E5B613 /* ImageNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkService.swift; sourceTree = "<group>"; };
@@ -78,10 +80,12 @@
 		E0EC5CB7270F463700E5B613 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		E0EC5CBC2710689400E5B613 /* MainPresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterTest.swift; sourceTree = "<group>"; };
 		E0EC5CBE27109D5300E5B613 /* RouterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterTest.swift; sourceTree = "<group>"; };
-		E0EC5CC12714BD2300E5B613 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E0EC5CC42714C38F00E5B613 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
-		E0EC5CC62714C39900E5B613 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		E0EC5CC82714C41400E5B613 /* Films.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Films.swift; sourceTree = "<group>"; };
+		E0EC5CC62714C39900E5B613 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
+		E0EC5CC82714C41400E5B613 /* MoviesManagedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesManagedObjects.swift; sourceTree = "<group>"; };
+		E0EC5CCA2715D0E100E5B613 /* DataStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorageService.swift; sourceTree = "<group>"; };
+		E0EC5CCF2716142700E5B613 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		E0EC5CD12716340100E5B613 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,9 +139,10 @@
 			children = (
 				E02FEFF526B0139500E3C2E4 /* AppDelegate.swift */,
 				E02FEFF726B0139500E3C2E4 /* SceneDelegate.swift */,
-				E0EC5CA4270B71C600E5B613 /* AssemblyModelBuilder.swift */,
+				E0EC5CA4270B71C600E5B613 /* AssemblyModel.swift */,
 				E0EC5CB7270F463700E5B613 /* Router.swift */,
 				E0EC5CC32714BD3700E5B613 /* CoreData */,
+				E0EC5CD32716392A00E5B613 /* DataStorage */,
 				E0EC5CA6270DC4C900E5B613 /* NetworkLayer */,
 				E0EC5CA9270DC5F200E5B613 /* MainModule */,
 				E0EC5CAA270DC61C00E5B613 /* DetailModule */,
@@ -258,12 +263,21 @@
 		E0EC5CC32714BD3700E5B613 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				E0EC5CC02714BD2300E5B613 /* Model.xcdatamodeld */,
+				E0EC5CCE2716142700E5B613 /* Model.xcdatamodeld */,
 				E0EC5CC42714C38F00E5B613 /* CoreDataService.swift */,
-				E0EC5CC62714C39900E5B613 /* Repository.swift */,
-				E0EC5CC82714C41400E5B613 /* Films.swift */,
+				E0EC5CC62714C39900E5B613 /* CoreDataStorage.swift */,
+				E0EC5CC82714C41400E5B613 /* MoviesManagedObjects.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		E0EC5CD32716392A00E5B613 /* DataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				E0EC5CD12716340100E5B613 /* Repository.swift */,
+				E0EC5CCA2715D0E100E5B613 /* DataStorageService.swift */,
+			);
+			path = DataStorage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -446,17 +460,19 @@
 				E0EC5CA3270B647500E5B613 /* CategoryPresenter.swift in Sources */,
 				E0EC5CB6270DEC4B00E5B613 /* Film.swift in Sources */,
 				E02FF02826B1F28700E3C2E4 /* CategoryViewController.swift in Sources */,
-				E0EC5CC22714BD2300E5B613 /* Model.xcdatamodeld in Sources */,
 				E02FEFFA26B0139500E3C2E4 /* ViewController.swift in Sources */,
+				E0EC5CCB2715D0E100E5B613 /* DataStorageService.swift in Sources */,
+				E0EC5CD02716142700E5B613 /* Model.xcdatamodeld in Sources */,
 				E0EC5CB4270DE06100E5B613 /* ImageNetworkService.swift in Sources */,
 				E0EC5CB2270DDEA300E5B613 /* DetailPresenter.swift in Sources */,
 				E0EC5CC52714C38F00E5B613 /* CoreDataService.swift in Sources */,
-				E0EC5CA5270B71C600E5B613 /* AssemblyModelBuilder.swift in Sources */,
+				E0EC5CA5270B71C600E5B613 /* AssemblyModel.swift in Sources */,
 				E02FEFF626B0139500E3C2E4 /* AppDelegate.swift in Sources */,
+				E0EC5CD22716340100E5B613 /* Repository.swift in Sources */,
 				E0EC5CB8270F463700E5B613 /* Router.swift in Sources */,
-				E0EC5CC72714C39900E5B613 /* Repository.swift in Sources */,
+				E0EC5CC72714C39900E5B613 /* CoreDataStorage.swift in Sources */,
 				E0EC5CA8270DC54500E5B613 /* MovieAPIService.swift in Sources */,
-				E0EC5CC92714C41400E5B613 /* Films.swift in Sources */,
+				E0EC5CC92714C41400E5B613 /* MoviesManagedObjects.swift in Sources */,
 				E02FF02E26B96C5800E3C2E4 /* FilmRequestModel.swift in Sources */,
 				E02FEFF826B0139500E3C2E4 /* SceneDelegate.swift in Sources */,
 				E02FF02A26B3FC4B00E3C2E4 /* FilmTableViewCell.swift in Sources */,
@@ -809,12 +825,12 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		E0EC5CC02714BD2300E5B613 /* Model.xcdatamodeld */ = {
+		E0EC5CCE2716142700E5B613 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				E0EC5CC12714BD2300E5B613 /* Model.xcdatamodel */,
+				E0EC5CCF2716142700E5B613 /* Model.xcdatamodel */,
 			);
-			currentVersion = E0EC5CC12714BD2300E5B613 /* Model.xcdatamodel */;
+			currentVersion = E0EC5CCF2716142700E5B613 /* Model.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
