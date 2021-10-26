@@ -1,5 +1,4 @@
 // RouterTest.swift
-// Copyright © RoadMap. All rights reserved.
 
 @testable import MovieBase
 import XCTest

@@ -1,5 +1,4 @@
 // MovieAPIService.swift
-// Copyright © RoadMap. All rights reserved.
 
 import Alamofire
 import Foundation
